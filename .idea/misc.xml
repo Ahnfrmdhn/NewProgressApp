@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android Project/app/src/main/res/drawable/add.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/bg_data_pompa.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/button_bg.xml" value="0.196" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/login_bg.xml" value="0.196" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/register_button.xml" value="0.195" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/register_fill_bg.xml" value="0.196" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/simpan.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/status_hidup.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/status_hidup_off.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/status_mati.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/user_image_background.xml" value="0.3305" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_base.xml" value="0.16712962962962963" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_dashboard.xml" value="0.2787851314596555" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_input_pompa.xml" value="0.25" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_list_view.xml" value="0.16396396396396395" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_splash.xml" value="0.17135416666666667" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_user_profile.xml" value="0.22" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/dialog_progress.xml" value="0.25" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_dashboard.xml" value="0.2787851314596555" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_home.xml" value="0.3171171171171171" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_notifications.xml" value="0.1685185185185185" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/list_item.xml" value="0.33" />
+        <entry key="..\:/Android Project/app/src/main/res/menu/bottom_nav_menu.xml" value="0.32592592592592595" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

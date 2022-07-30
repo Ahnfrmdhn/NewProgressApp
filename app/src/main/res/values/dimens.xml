@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="splash_title_text_size">35sp</dimen>
+    <dimen name="auth_header_image">450dp</dimen>
+    <dimen name="auth_logo_width_size">220dp</dimen>
+    <dimen name="title_textsize"></dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/orange"
+    app:cardCornerRadius="10dp"
+    android:elevation="3dp"
+    app:contentPadding="4dp"
+    android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:padding="16dp"
+            android:id="@+id/iv_pompa"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/img"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:fontFamily="@font/poppinsbold"
+                android:id="@+id/tv_lokasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_gravity="left"
+                />
+
+            <TextView
+                android:id="@+id/tv_jenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="2"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="right"
+                android:text="Jenis Pompa"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:fontFamily="@font/poppinsmedium"
+                android:id="@+id/tv_kapasitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="left"
+                android:text="Kapasitas"
+                />
+
+            <TextView
+                android:fontFamily="@font/poppinsmedium"
+                android:id="@+id/tv_satuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Satuan"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:fontFamily="@font/poppinslight"
+            android:id="@+id/tv_kondisi"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kondisi"
+            android:gravity="bottom"/>
+
+    </LinearLayout>
+
+</LinearLayout>

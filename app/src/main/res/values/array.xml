@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="position">
+        <item>petugasme1</item>
+        <item>petugasme2</item>
+        <item>stafpds1</item>
+        <item>stafpds2</item>
+        <item>kasipds</item>
+    </string-array>
+
+    <string-array name="location">
+        <item>utara</item>
+        <item>selatan</item>
+        <item>timur</item>
+        <item>kandang rusa</item>
+        <item>pusat</item>
+    </string-array>
+
+    <string-array name="jenispompa">
+        <item>submersible</item>
+        <item>centrifugal</item>
+        <item>sampit</item>
+        <item>jetpump</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>hidup</item>
+        <item>mati</item>
+    </string-array>
+
+    <string-array name="satuan">
+        <item>kW</item>
+        <item>Hp</item>
+    </string-array>
+</resources>
