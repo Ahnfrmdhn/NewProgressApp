@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -15,6 +15,7 @@ import kotlinx.parcelize.Parcelize
 //
 //    }
 //}
+@Parcelize
 data class Pompa (
     val id: String,
     val lokasi: String,
@@ -22,7 +23,6 @@ data class Pompa (
     val kapasitas: String,
     val satuan: String,
     val status: String,
-    val keterangan: String
-){
-
-}
+    val keterangan: String,
+    val image: String
+) : Parcelable

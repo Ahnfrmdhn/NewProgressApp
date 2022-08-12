@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SearchActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppinsbold"
+            android:gravity="center"
+            android:text="Cari"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_setting"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/settings" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/sv_cari"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:paddingBottom="100dp"
+            >
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:id="@+id/ll_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi"
+                    android:gravity="left"
+                    android:fontFamily="@font/poppinsbold"
+                    android:textSize="16sp"
+                    />
+
+                <CheckBox
+                    android:id="@+id/cb_utara"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Utara"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_selatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Selatan"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_timur"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Timur"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_kandangrusa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Kandang Rusa"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_pusat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Pusat"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_barat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Barat"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_tugumonas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Tugu Monas"
+                    />
+                <CheckBox
+                    android:id="@+id/cb_tuguproklamasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Tugu Proklamasi"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_hasil_lokasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/orange"
+                android:text="Hasil"
+                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_hasil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_hasil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hasil untuk lokasi : "
+                    android:fontFamily="@font/poppinsbold"
+                    android:textSize="20sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Jumlah jenis pompa submersible : 0"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sub_hidup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa hidup : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sub_mati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa mati : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_cent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Jumlah jenis pompa centrifugal : 0"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_cent_hidup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa hidup : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_cent_mati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa mati : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sampit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Jumlah jenis pompa sampit : "
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sampit_hidup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa hidup : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sampit_mati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa mati : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_jet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Jumlah jenis pompa jetpump : "
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_jet_hidup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa hidup : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_jet_mati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah pompa mati : "
+                    android:fontFamily="@font/poppinsitalic"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

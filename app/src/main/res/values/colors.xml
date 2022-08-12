@@ -15,4 +15,7 @@
 
     <color name="colorSnackBarError">#F72400</color>
     <color name="colorSnackBarSuccess">#8BC34A </color>
+
+    <color name="green">#FF03DAC5</color>
+    <color name="red">#F44336</color>
 </resources>

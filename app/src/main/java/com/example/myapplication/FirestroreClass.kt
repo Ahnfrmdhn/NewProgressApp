@@ -1,25 +1,28 @@
 package com.example.myapplication
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
-import android.view.View
 import android.widget.Toast
+import com.example.myapplication.model.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.HashMap
 
 class FirestroreClass {
 
     private val mFirestore:FirebaseFirestore = FirebaseFirestore.getInstance()
     private val mFirestoreAuth = FirebaseAuth.getInstance()
+    lateinit var sharedPref: PreferenceHelper
 
     fun registerUser(activity: RegisterActivity, userInfo: User){
         mFirestore.collection(Constants.USERS)
@@ -50,6 +53,7 @@ class FirestroreClass {
     }
 
     fun getUserDetails(activity: Activity){
+        sharedPref = PreferenceHelper(activity)
         mFirestore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
@@ -87,7 +91,6 @@ class FirestroreClass {
         return mFirestoreAuth.signInAnonymously()
     }
 
-
     fun getPostList(): Task<DocumentSnapshot> {
         return mFirestore
             .collection("pompa")
@@ -95,32 +98,43 @@ class FirestroreClass {
             .get()
     }
 
-
-
-
-//    fun updateProfile(activity: UserProfileActivity, userInfo: User){
+//    fun uploadImageToCloudeStorage(activity: Activity, imageFileURI: Uri?){
+//        val sRef = FirebaseStorage.getInstance().reference.child(
+//            "images/" + Constants.getFileExtension(activity, imageFileURI)
+//                    + Constants.IMAGE_POMPA + System.currentTimeMillis() + "." + Constants.getFileExtension(
+//                activity, imageFileURI
+//        ))
+//        sRef.putFile(imageFileURI!!)
+//            .addOnSuccessListener { taskSnapshot ->
+//            Log.e(
+//                "Firebase Image URL",
+//                taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+//            )
 //
-//        mFirestore.collection(Constants.USERS)
-//            .document(userInfo.id)
-//            .update(mapOf(
-//                "name" to userInfo.name,
-//                "email" to userInfo.email,
-//                "position" to userInfo.position
-//            )).addOnSuccessListener {
-//                Toast.makeText(
-//                    activity,
-//                    "Data disimpan",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//            .addOnFailureListener { e ->
-//                activity.hideProgressDialog()
+//            taskSnapshot.metadata!!.reference!!.downloadUrl
+//                .addOnSuccessListener { uri ->
+//                    Log.e("Downloadable Image URL", uri.toString())
+//                    when(activity){
+//                        is InputPompa -> {
+//                            activity.imageUploadSuccess(uri.toString())
+//                        }
+//                    }
+//                }
+//        }
+//            .addOnFailureListener{ exception ->
+//                //kalau force close hapus ini
+//                when (activity) {
+//                    is InputPompa ->{
+//                        activity.hideProgressDialog()
+//                    }
+//                }
 //                Log.e(
 //                    activity.javaClass.simpleName,
-//                    "Gagal ketika mendaftar",
-//                    e
+//                    exception.message,
+//                    exception
 //                )
 //            }
+//
 //    }
 
 }

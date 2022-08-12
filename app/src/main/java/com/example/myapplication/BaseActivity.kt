@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.HandlerCompat.postDelayed
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
 open class BaseActivity : AppCompatActivity() {
+
+    var db = FirebaseFirestore.getInstance().collection(Constants.POMPA)
 
     private var doubleBackToExitPressedOnce = false
 
@@ -86,5 +89,8 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
+    fun dialogSearch(){
+
+    }
 
 }

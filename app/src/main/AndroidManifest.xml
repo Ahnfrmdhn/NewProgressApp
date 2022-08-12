@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,16 +17,26 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".SearchPompaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SummaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditPompa"
+            android:exported="false" />
+        <activity
+            android:name=".DetailPompaActivity"
+            android:exported="false" />
+        <activity
             android:name=".InputPompa"
             android:exported="false" />
-        <activity
-            android:name=".ListViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:noHistory="true" />
         <activity
             android:name=".UserProfileActivity"
             android:exported="false"
@@ -51,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".DetailActivity"
             android:exported="false" />
     </application>
 

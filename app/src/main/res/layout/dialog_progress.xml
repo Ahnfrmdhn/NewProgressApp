@@ -9,7 +9,6 @@
     android:padding="16dp"
     tools:context=".BaseActivity">
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

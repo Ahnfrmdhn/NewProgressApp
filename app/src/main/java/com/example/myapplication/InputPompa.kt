@@ -1,15 +1,33 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.Image
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.myapplication.model.Pompa
+import com.example.myapplication.utils.GlideLoader
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
+import java.io.IOException
+import java.util.*
+import java.util.jar.Manifest
+import kotlin.collections.HashMap
 
-class InputPompa : AppCompatActivity() {
+class InputPompa : BaseActivity(){
 
     private lateinit var etKapasitas: TextInputEditText
     private lateinit var etKet: TextInputEditText
@@ -22,8 +40,11 @@ class InputPompa : AppCompatActivity() {
     private lateinit var txtStatus: String
     private lateinit var txtKet: String
 
+//    private lateinit var imageNameOnCloud: String
 
-    var db = FirebaseFirestore.getInstance()
+    private var selectedImageFileUri: Uri? = null
+
+    private var storageReference: StorageReference? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +57,8 @@ class InputPompa : AppCompatActivity() {
         val spStatus = findViewById<Spinner>(R.id.sp_status)
         etKapasitas = findViewById(R.id.et_kapasitas)
         etKet = findViewById(R.id.et_ket)
+
+        storageReference = FirebaseStorage.getInstance().reference
 
         spPosisi.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
@@ -88,12 +111,125 @@ class InputPompa : AppCompatActivity() {
         btnSave.setOnClickListener{
             val etKap: String = etKapasitas.text.toString()
             val etKet: String = etKet.text.toString()
-            saveData(txtLokasi, txtJenis, etKap, txtSatuan, txtStatus, etKet)
+            var imageNameOnCloud: String
+
+
+//            FirestroreClass().uploadImageToCloudeStorage(this, selectedImageFileUri)
+            if (selectedImageFileUri != null){
+                if(selectedImageFileUri != null){
+                    val imageName = UUID.randomUUID().toString() + ".jpg"
+                    val ref = storageReference!!.child("images/$imageName")
+                    val uploadTask = ref.putFile(selectedImageFileUri!!)
+                    uploadTask.continueWithTask{ task ->
+                        if (!task.isSuccessful) {
+                            task.exception?.let {
+                                throw it
+                            }
+                        }
+                        ref.downloadUrl
+                    }.addOnCompleteListener { task ->
+                        if (task.isSuccessful){
+                            imageNameOnCloud = task.result.toString()
+                            Toast.makeText(this, imageNameOnCloud, Toast.LENGTH_LONG).show()
+                            saveData(txtLokasi, txtJenis, etKap, txtSatuan, txtStatus, etKet, imageNameOnCloud)
+                        }
+                    }
+                }else{
+                    Toast.makeText(
+                        this,
+                        "Pilih gambar",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+//                FirestroreClass().uploadImageToCloudeStorage(this, selectedImageFileUri)
+            }else{
+                Toast.makeText(this, "Gambar belum ditambahkan", Toast.LENGTH_SHORT).show()
+            }
+
+
+
+        }
+        val btnCancel = findViewById<LinearLayout>(R.id.btn_cancel)
+        btnCancel!!.setOnClickListener(View.OnClickListener {
+            onBackPressed()
+        })
+
+        val ivPhoto = findViewById<ImageView>(R.id.img_pompa)
+        ivPhoto.setOnClickListener{
+            if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED){
+//                showErrorSnackBar("You already have the storge permission", false)
+                //intent to gallery
+                Constants.showImageChooser(this)
+            }else{
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    Constants.READ_STORAGE_PERMISSION_CODE
+                )
+            }
         }
 
     }
 
-    fun saveData(lokasi: String, jenis: String, kapasitas: String, satuan: String, status: String, keterangan: String){
+    private fun uploadImage() {
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                showErrorSnackBar("Storage permission is granted", false)
+                //intent to gallery
+                Constants.showImageChooser(this)
+            }else{
+                Toast.makeText(
+                    this,
+                    "Permission storage is denied. You can also allow it from settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val ivPhoto = findViewById<ImageView>(R.id.img_pompa)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
+                if (data != null){
+                    try {
+                        selectedImageFileUri = data.data
+
+//                        ivPhoto.setImageURI(selectedImageFileUri)
+                        GlideLoader(this).loaderPicture(selectedImageFileUri!!, ivPhoto)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Toast.makeText(
+                            this,
+                            "Gagal memilih gambar",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }else if(resultCode == Activity.RESULT_CANCELED){
+            Log.e("Request cancelled", "image selection cancelled")
+        }
+    }
+
+//    fun imageUploadSuccess(imageURL: String){
+//        hideProgressDialog()
+//        imageNameOnCloud = imageURL
+//    }
+
+    fun saveData(lokasi: String, jenis: String, kapasitas: String, satuan: String, status: String, keterangan: String, imageUrl: String){
         val pompa: MutableMap<String, Any> = HashMap()
 
         pompa["lokasi"] = lokasi
@@ -102,13 +238,14 @@ class InputPompa : AppCompatActivity() {
         pompa["satuan"] = satuan
         pompa["status"] = status
         pompa["keterangan"] = keterangan
+        pompa["image"] = imageUrl
 
         if (kapasitas.isEmpty()){
             etKapasitas.error
             return
         }
 
-        db.collection("pompa")
+        FirebaseFirestore.getInstance().collection(Constants.POMPA)
             .add(pompa)
             .addOnSuccessListener {
                 Toast.makeText(this@InputPompa, "Data pompa berhasil ditambahkan", Toast.LENGTH_SHORT).show()
