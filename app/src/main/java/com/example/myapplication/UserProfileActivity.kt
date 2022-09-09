@@ -113,8 +113,8 @@ class UserProfileActivity : BaseActivity() {
     }
 
     fun upDateUser(){
-        val etName = findViewById<TextInputEditText>(R.id.et_name)
-        val etMail = findViewById<TextInputEditText>(R.id.et_email)
+        val etName = findViewById<TextView>(R.id.et_name)
+        val etMail = findViewById<TextView>(R.id.et_email)
         val data = User(
             idUser.trim(),
             etName.text.toString().trim(),
@@ -124,9 +124,18 @@ class UserProfileActivity : BaseActivity() {
             0
         )
         if(validateProfile()){
+
+            val tvJabatan = findViewById<TextView>(R.id.tv_posisi)
+            val spPosisi = findViewById<Spinner>(R.id.sp_position)
             FirebaseFirestore.getInstance().collection(Constants.USERS)
                 .document(idUser)
                 .set(data)
+                .addOnCompleteListener {
+                    etName.text = data.name
+                    etMail.text = data.email
+                    tvJabatan.text = data.position
+                    spPosisi.setSelection(EditPompa().getIndex(resources.getStringArray(R.array.position), data.position))
+                }
 
         }
     }

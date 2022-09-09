@@ -214,7 +214,7 @@ class SearchActivity : AppCompatActivity() {
                     val bacaLokasi = document.data.get("lokasi") as String
                     val bacaStatus = document.data.get("status") as String
                     if(cbUtara.isChecked){
-                        textUtara = "utara"
+                        textUtara = "{utara}"
                         if(bacaLokasi == "utara"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -247,7 +247,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbSelatan.isChecked){
-                        textSelatan = "selatan"
+                        textSelatan = "{selatan}"
                         if(bacaLokasi == "selatan"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -280,7 +280,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbTimur.isChecked){
-                        textTimur = "timur"
+                        textTimur = "{timur}"
                         if(bacaLokasi == "timur"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -313,7 +313,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbKdRusa.isChecked){
-                        textKdRusa = "kandang rusa"
+                        textKdRusa = "{kandang rusa}"
                         if(bacaLokasi == "kandang rusa"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -346,7 +346,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbBarat.isChecked){
-                        textBarat = "barat"
+                        textBarat = "{barat}"
                         if(bacaLokasi == "barat"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -412,7 +412,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbTgMonas.isChecked){
-                        textTgMonas = "tugu monas"
+                        textTgMonas = "{tugu monas}"
                         if(bacaLokasi == "tugu monas"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){
@@ -445,7 +445,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     if(cbTgPro.isChecked){
-                        textTgPro = "tugu proklamasi"
+                        textTgPro = "{tugu proklamasi}"
                         if(bacaLokasi == "tugu proklamasi"){
                             if(bacaJenis == "submersible"){
                                 if (bacaStatus == "hidup"){

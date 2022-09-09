@@ -82,7 +82,7 @@ class SearchPompaActivity : AppCompatActivity() {
                     val bacaLokasi = document.data.get("lokasi") as String
                     val bacaStatus = document.data.get("status") as String
                     if(cbSub.isChecked){
-                        textSub = " submersible"
+                        textSub = "{submersible}"
                         if(bacaJenis == "submersible"){
                             if(bacaLokasi == "utara"){
                                 if(bacaStatus == "hidup"){
@@ -143,7 +143,7 @@ class SearchPompaActivity : AppCompatActivity() {
                         }
                     }
                     if(cbCent.isChecked){
-                        textCent = " centrifugal "
+                        textCent = "{centrifugal}"
                         if(bacaJenis == "centrifugal"){
                             if(bacaLokasi == "utara"){
                                 if(bacaStatus == "hidup"){
@@ -204,7 +204,7 @@ class SearchPompaActivity : AppCompatActivity() {
                         }
                     }
                     if(cbSampit.isChecked){
-                        textSampit = " sampit "
+                        textSampit = "{sampit}"
                         if(bacaJenis == "sampit"){
                             if(bacaLokasi == "utara"){
                                 if(bacaStatus == "hidup"){
@@ -265,7 +265,7 @@ class SearchPompaActivity : AppCompatActivity() {
                         }
                     }
                     if(cbJet.isChecked){
-                        textJet = " jetpump "
+                        textJet = "{jetpump}"
                         if(bacaJenis == "jetpump"){
                             if(bacaLokasi == "utara"){
                                 if(bacaStatus == "hidup"){
@@ -327,7 +327,7 @@ class SearchPompaActivity : AppCompatActivity() {
                     }
                 }
 
-                tvHasil.text = "Hasil untuk jenis$textSub,$textCent.$textSampit,$textJet"
+                tvHasil.text = "Hasil untuk jenis : $textSub $textCent $textSampit $textJet"
 
                 tvUtara.text = "Jumlah pompa di Utara : ${iHUtara+iMUtara}"
                 tvUtaraHidup.text = "Jumlah pompa hidup : $iHUtara"

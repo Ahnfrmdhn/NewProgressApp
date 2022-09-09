@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,11 +18,13 @@ import com.example.myapplication.utils.GlideLoader
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.*
 
 class EditPompa : AppCompatActivity() {
 
+    private lateinit var imageBitmap: Bitmap
     private lateinit var pompa: Pompa
 
     private lateinit var idPompa: String
@@ -30,6 +33,7 @@ class EditPompa : AppCompatActivity() {
     private lateinit var txtSatuan: String
     private lateinit var txtStatus: String
     private lateinit var imageURL: String
+    private lateinit var imageString: String
 
     private var clickChecker: Int = 0
 
@@ -49,12 +53,11 @@ class EditPompa : AppCompatActivity() {
         val tvKet = findViewById<TextView>(R.id.et_ket)
         val ivPompa = findViewById<ImageView>(R.id.iv_pompa)
 
-        ivPompa.setOnClickListener {
+       /* ivPompa.setOnClickListener {
             clickChecker = 1
             if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED){
-//                showErrorSnackBar("You already have the storge permission", false)
-                //intent to gallery
+
                 Constants.showImageChooser(this)
             }else{
                 ActivityCompat.requestPermissions(
@@ -63,6 +66,11 @@ class EditPompa : AppCompatActivity() {
                     Constants.READ_STORAGE_PERMISSION_CODE
                 )
             }
+        }*/
+
+        ivPompa.setOnClickListener {
+            clickChecker = 1
+            Constants.goToCamera(this)
         }
 
         idPompa = pompa.id
@@ -72,6 +80,7 @@ class EditPompa : AppCompatActivity() {
         tvKap.text = pompa.kapasitas
         tvKet.text = pompa.keterangan
         imageURL = pompa.image
+        imageString = pompa.imagename
         if (pompa.image != ""){
             Glide.with(this)
                 .load(pompa.image)
@@ -129,10 +138,13 @@ class EditPompa : AppCompatActivity() {
         val btnSimpan = findViewById<LinearLayout>(R.id.btn_simpan)
         btnSimpan.setOnClickListener {
             updatePompa()
+            startActivity(Intent(this, DetailActivity::class.java))
+            finish()
         }
 
 
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -142,9 +154,8 @@ class EditPompa : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                showErrorSnackBar("Storage permission is granted", false)
-                //intent to gallery
-                Constants.showImageChooser(this)
+
+                Constants.goToCamera(this)
             }else{
                 Toast.makeText(
                     this,
@@ -156,6 +167,21 @@ class EditPompa : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val ivPhoto = findViewById<ImageView>(R.id.iv_pompa)
+        if (requestCode == Constants.REQ_CAM && resultCode == Activity.RESULT_OK){
+            imageBitmap = data?.extras?.get("data") as Bitmap
+            ivPhoto.setImageBitmap(imageBitmap)
+        }else{
+            Toast.makeText(
+                this,
+                "Gambar belum dipilih",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val ivPhoto = findViewById<ImageView>(R.id.iv_pompa)
         if(resultCode == Activity.RESULT_OK){
@@ -179,23 +205,7 @@ class EditPompa : AppCompatActivity() {
         }else if(resultCode == Activity.RESULT_CANCELED){
             Log.e("Request cancelled", "image selection cancelled")
         }
-    }
-
-//    fun setItem(spinner: Spinner) : String{
-//        var data: String = ""
-//        spinner.onItemSelectedListener = object :
-//        AdapterView.OnItemSelectedListener{
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                data = parent?.getItemAtPosition(position).toString()
-//
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//        }
-//        return data
-//    }
+    }*/
 
     fun getIndex(array: Array<String>, text: String): Int{
         var result = 0
@@ -211,7 +221,71 @@ class EditPompa : AppCompatActivity() {
         val tvKap = findViewById<TextInputEditText>(R.id.et_kapasitas)
         val tvKet = findViewById<TextInputEditText>(R.id.et_ket)
         var imageNameOnCloud: String
-        var data: Pompa = Pompa("","","","","","","","")
+        var data: Pompa = Pompa("","","","","","","","","")
+        if(clickChecker != 0){
+            val baos = ByteArrayOutputStream()
+            val imageName = UUID.randomUUID().toString() + ".jpg"
+            val imageNameOnFirestore = imageName
+            val ref = FirebaseStorage.getInstance().reference.child("images/$imageName")
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos)
+
+            val img = baos.toByteArray()
+            ref.putBytes(img)
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    ref.downloadUrl
+                }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful){
+                        imageNameOnCloud = task.result.toString()
+                        data = Pompa(
+                            idPompa.trim(),
+                            txtLokasi.trim(),
+                            txtJenis.trim(),
+                            tvKap.text.toString().trim(),
+                            txtSatuan.trim(),
+                            txtStatus.trim(),
+                            tvKet.text.toString().trim(),
+                            imageNameOnCloud,
+                            imageName.trim()
+                        )
+                        FirebaseFirestore.getInstance().collection(Constants.POMPA)
+                            .document(idPompa)
+                            .set(data)
+                    }
+                }
+            val delRef = FirebaseStorage.getInstance().reference.child("images/$imageString")
+            delRef.delete()
+        }else{
+            data = Pompa(
+                idPompa.trim(),
+                txtLokasi.trim(),
+                txtJenis.trim(),
+                tvKap.text.toString().trim(),
+                txtSatuan.trim(),
+                txtStatus.trim(),
+                tvKet.text.toString().trim(),
+                imageURL.trim(),
+                imageString.trim()
+
+            )
+            FirebaseFirestore.getInstance().collection(Constants.POMPA)
+                .document(idPompa)
+                .set(data)
+        }
+        Toast.makeText(this, "Data berhasil di edit", Toast.LENGTH_SHORT).show()
+
+    }
+
+    /*fun updatePompa(){
+        val tvKap = findViewById<TextInputEditText>(R.id.et_kapasitas)
+        val tvKet = findViewById<TextInputEditText>(R.id.et_ket)
+        var imageNameOnCloud: String
+        var data: Pompa = Pompa("","","","","","","","","")
         if (clickChecker != 0){
             val imageName = UUID.randomUUID().toString() + ".jpg"
             val ref = FirebaseStorage.getInstance().reference.child("images/$imageName")
@@ -234,13 +308,16 @@ class EditPompa : AppCompatActivity() {
                         txtSatuan.trim(),
                         txtStatus.trim(),
                         tvKet.text.toString().trim(),
-                        imageNameOnCloud
+                        imageNameOnCloud,
+                        imageName.trim()
                     )
                     FirebaseFirestore.getInstance().collection(Constants.POMPA)
                         .document(idPompa)
                         .set(data)
                 }
             }
+            val delRef = FirebaseStorage.getInstance().reference.child("images/$imageString")
+                delRef.delete()
         }else{
             data = Pompa(
                 idPompa.trim(),
@@ -250,13 +327,15 @@ class EditPompa : AppCompatActivity() {
                 txtSatuan.trim(),
                 txtStatus.trim(),
                 tvKet.text.toString().trim(),
-                imageURL.trim()
+                imageURL.trim(),
+                imageString.trim()
+
             )
             FirebaseFirestore.getInstance().collection(Constants.POMPA)
                 .document(idPompa)
                 .set(data)
         }
+        Toast.makeText(this, "Data berhasil di edit", Toast.LENGTH_SHORT).show()
 
-
-    }
+    }*/
 }

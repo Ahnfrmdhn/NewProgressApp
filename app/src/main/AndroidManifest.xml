@@ -3,16 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fitsSystemWindows="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_baru"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_baru_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
@@ -30,13 +37,14 @@
             android:exported="false" />
         <activity
             android:name=".EditPompa"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".DetailPompaActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:noHistory="true" />
         <activity
             android:name=".InputPompa"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".UserProfileActivity"
             android:exported="false"
@@ -65,7 +73,8 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
     </application>
 
 </manifest>

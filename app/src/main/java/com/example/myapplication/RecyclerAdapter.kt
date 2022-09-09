@@ -52,6 +52,7 @@ class PompaHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
     private lateinit var itemKeterangan: String
     private lateinit var itemId: String
     private lateinit var itemImageURL: String
+    private lateinit var itemImageString: String
 
     fun bindPompa(pompa: Pompa){
         itemLokasi.text = pompa.lokasi
@@ -62,6 +63,7 @@ class PompaHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
         itemKeterangan = pompa.keterangan
         itemId = pompa.id
         itemImageURL = pompa.image
+        itemImageString = pompa.imagename
         val storageReference = FirebaseStorage.getInstance().reference.child("image/$itemImageURL")
         val localFile = File.createTempFile("tempImages", "jpg")
         if(itemImageURL != ""){

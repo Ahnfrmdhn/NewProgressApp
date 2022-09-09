@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">SI Monas</string>
     <string name="err_msg_enter_name">Nama tidak boleh kosong</string>
     <string name="err_msg_enter_mail">Email tidak boleh kosong</string>
     <string name="err_msg_enter_pass">Password tidak boleh kosong</string>

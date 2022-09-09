@@ -42,7 +42,7 @@ class SummaryActivity : BaseActivity() {
         //piechart untuk jenis pompa
         readDataJenis("submersible", R.id.pc_jenis_submersible, R.id.tv_hidup_submersible, R.id.tv_mati_submersible)
         readDataJenis("centrifugal", R.id.pc_jenis_centrifugal, R.id.tv_hidup_centrifugal, R.id.tv_mati_centrifugal)
-        readDataJenis("jetpump", R.id.pc_jenis_jetpump, R.id.tv_hidup_centrifugal, R.id.tv_mati_centrifugal)
+        readDataJenis("jetpump", R.id.pc_jenis_jetpump, R.id.tv_hidup_jetpump, R.id.tv_mati_jetpump)
         readDataJenis("sampit", R.id.pc_jenis_sampit, R.id.tv_hidup_sampit, R.id.tv_mati_sampit)
 
 
@@ -112,7 +112,7 @@ class SummaryActivity : BaseActivity() {
             }
     }
 
-    fun viewChart(pieChart: PieChart, mati: Float, hidup: Float, centerText: String){
+    fun viewChart(pieChart: PieChart, hidup: Float, mati: Float, centerText: String){
 
         val myCustomFont : Typeface? = ResourcesCompat.getFont(this, R.font.poppinsblack)
         if (hidup == 0f && mati == 0f){
@@ -186,8 +186,8 @@ class SummaryActivity : BaseActivity() {
 
         // add a lot of colors to list
         val colors: ArrayList<Int> = ArrayList()
-        colors.add(resources.getColor(R.color.green))
         colors.add(resources.getColor(R.color.red))
+        colors.add(resources.getColor(R.color.green))
 
 
         // on below line we are setting colors.

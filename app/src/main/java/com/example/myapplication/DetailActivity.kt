@@ -1,10 +1,12 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -33,11 +35,15 @@ class DetailActivity : BaseActivity() {
         }
 
         FirestroreClass().getUserDetails(this@DetailActivity)
-//        val btnSetting = findViewById<ImageView>(R.id.btn_setting)
+        val btnDownload = findViewById<ImageView>(R.id.btn_download)
 
-//        btnSetting.setOnClickListener {
-//            readDetailData()
-//        }
+        btnDownload.setOnClickListener {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PackageManager.PERMISSION_GRANTED)
+            ExcelHelper().excelCreater()
+        }
 
         readDataPompa()
         iniRefreshListener()
@@ -48,13 +54,7 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if(backPressTime + 2000 > System.currentTimeMillis()){
-            super.onBackPressed()
-        }else{
-            Toast.makeText(this, "tekan kembali untuk keluar", Toast.LENGTH_SHORT).show()
-        }
-
-        backPressTime =  System.currentTimeMillis()
+        super.onBackPressed()
         finish()
     }
 
@@ -95,11 +95,12 @@ class DetailActivity : BaseActivity() {
                         document.data.get("satuan") as String,
                         document.data.get("status") as String,
                         document.data.get("keterangan") as String,
-                        document.data.get("image") as String
+                        document.data.get("image") as String,
+                        document.data.get("imagename") as String
                     )))
                 }
 
-                var pompaAdapter = RecyclerAdapter(listPompa)
+                var pompaAdapter = RecyclerAdapter(listPompa.sortedBy { it.lokasi })
                 var rvPompa = findViewById<RecyclerView>(R.id.rv_pompa)
 
 

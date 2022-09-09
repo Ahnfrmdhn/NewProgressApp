@@ -16,6 +16,7 @@ class Constants {
         const val READ_STORAGE_PERMISSION_CODE = 2
         const val PICK_IMAGE_REQUEST_CODE = 1
         const val IMAGE_POMPA: String = "Image_Pompa"
+        const val REQ_CAM = 100
 
         val PREF_IS_LOGIN = "PREF_IS_LOGIN"
         val PREF_ID = "PREF_ID"
@@ -40,9 +41,13 @@ class Constants {
                 .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
         }
 
+        fun goToCamera(activity: Activity){
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            activity.startActivityForResult(intent, REQ_CAM)
+        }
+
+
     }
-
-
 
 
 }

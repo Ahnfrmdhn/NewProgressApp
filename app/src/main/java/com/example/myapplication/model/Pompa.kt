@@ -24,5 +24,6 @@ data class Pompa (
     val satuan: String,
     val status: String,
     val keterangan: String,
-    val image: String
+    val image: String,
+    val imagename: String
 ) : Parcelable

@@ -16,12 +16,14 @@ import com.example.myapplication.model.Pompa
 import com.example.myapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class DetailPompaActivity : AppCompatActivity() {
 
     private var db = FirebaseFirestore.getInstance()
     private lateinit var pompa: Pompa
     private lateinit var getId: String
+    private lateinit var getImageName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +74,7 @@ class DetailPompaActivity : AppCompatActivity() {
             tvSatuan.text = pompa.satuan
             tvStatus.text = pompa.status
             tvKet.text = pompa.keterangan
+            getImageName = pompa.imagename
             if (pompa.image != ""){
                 Glide.with(this)
                     .load(pompa.image)
@@ -88,6 +91,9 @@ class DetailPompaActivity : AppCompatActivity() {
     }
 
     fun deleteData(){
+
+        FirebaseStorage.getInstance().reference.child("images/$getImageName")
+            .delete()
 
         db.collection("pompa")
             .document(getId)
